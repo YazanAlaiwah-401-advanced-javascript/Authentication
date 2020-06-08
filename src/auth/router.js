@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const basicAuth = require('./middleware/basic.js');
 const userCollection = require('./models/users-collection.js');
+const github = require('./middleware/oauth.js');
 
 router.post('/signup', async (req,res,next)=>{
   let record;
@@ -34,6 +35,11 @@ router.get('/users',basicAuth,async (req,res,next)=>{
 
     next(valid);
   }
+});
+
+router.get('/oauth',github,(req,res)=>{
+  console.log(req.recorde);
+  res.json(req.recorde);
 });
 
 module.exports = router;
