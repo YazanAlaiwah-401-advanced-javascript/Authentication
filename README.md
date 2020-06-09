@@ -8,6 +8,7 @@
 1. EndPoint: *GET* `/users` -> will return all data users in the db if the use is in the database
 2. EndPoint: *POST* `/signin` -> will login the user and the password and usename will be besicAuth
 3. EndPoint: *POST* `/signup` -> will singup the user in the database
+4. EndPoint: *GET* `/secret` -> will return the user data if he have the token
 ## Modules
 
 1. server.js
@@ -25,8 +26,12 @@
 ## How to initialize/run your application
 1. npm install
 2. npm start
-EndPoint: /
+
 
 ## Tests
 Lint test: npm run lint
-<!-- unit test: npm test -->
+unit test: npm test
+
+## UML
+
+![uml](./assets/class13.png)

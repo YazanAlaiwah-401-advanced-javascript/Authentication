@@ -13,11 +13,10 @@ class UserCollection {
 
         let user = new that.schema(userInfo);
         user.save().then(data=>{
-          let userToken = that.schema.generateToken(data.username);
+          let userToken = that.schema.generateToken(data._id);
           return res({token:userToken, user:data});
         }).catch(e=>rej(new Error('user is here')));
       }catch(e){
-        console.log(e.message);
         rej(new Error('user is here'));
       }
     });
@@ -28,7 +27,7 @@ class UserCollection {
       if(record.length > 0){
         let valid = await this.schema.authenticateUser(userInfo.password,record[0].password);
         if(valid){
-          let token = await this.schema.generateToken(record.username);
+          let token = await this.schema.generateToken(record._id);
           return {
             token,
             user:record[0],
