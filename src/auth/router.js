@@ -5,6 +5,7 @@ const basicAuth = require('./middleware/basic.js');
 const userCollection = require('./models/users-collection.js');
 const github = require('./middleware/oauth.js');
 
+
 router.post('/signup', async (req,res,next)=>{
   let record;
   try {
@@ -12,7 +13,7 @@ router.post('/signup', async (req,res,next)=>{
     res.send(record);
   }catch(e){
     console.log(e.message);
-    next('user is in the data');
+    next(e.message);
   }
 });
 
@@ -38,7 +39,6 @@ router.get('/users',basicAuth,async (req,res,next)=>{
 });
 
 router.get('/oauth',github,(req,res)=>{
-  console.log(req.recorde);
   res.json(req.recorde);
 });
 
