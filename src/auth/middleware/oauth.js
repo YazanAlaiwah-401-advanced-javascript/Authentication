@@ -66,7 +66,7 @@ async function getRemoteUserInfo(token) {
 async function getUser(remoteUser) {
   const userRecord = {
     username: remoteUser.login,
-    password: 'anysting', // Math.random(1000), // this can be anything just because its required in the db
+    password: `${Math.random()*100000}`, // Math.random(1000), // this can be anything just because its required in the db
   };
   const recorde = await user.create(userRecord);
   // const token = user.generateToken(user);

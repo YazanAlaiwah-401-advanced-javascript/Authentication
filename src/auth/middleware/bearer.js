@@ -7,8 +7,8 @@ module.exports = async (req, res, next) => {
     } else {
       const [auth, token] = req.headers.authorization.split(' ');
       if (auth === 'Bearer') {
-        let x = await user.authenticateToken(token);
-        req.user = x;
+        let record = await user.authenticateToken(token);
+        req.user = record;
       } else {
         next('Invalid auth header');
       }

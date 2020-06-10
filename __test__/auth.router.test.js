@@ -5,9 +5,11 @@ const mockRequest = supergoose(server);
 
 describe('ROUTE MODULE', () => {
   let token;
+  let newToken;
   let user = {
     username: 'yazan',
     password: '0000',
+    role: 'editors',
   };
 
   it('its should sign the user in the database', () => {
@@ -35,14 +37,30 @@ describe('ROUTE MODULE', () => {
   it('its should return users data when valid user ask for it', () => {
     return mockRequest.get('/secret').set({Authorization:`Bearer ${token}`})
       .then(results => {
+        newToken = results.body.token;
         expect(results.body).toMatchObject({username:'yazan'});
       });
-
   });
+
   it('its should return error for the user if its the old token', () => {
-    return mockRequest.get('/secret').set({Authorization:`Bearer ${token}`})
+    return mockRequest.get('/secret').set({Authorization:`Bearer ${token}a`})
       .then(results => {
-        expect(results.body).toMatchObject( { username : 'yazan' });
+        expect(results.status).toEqual(500);
+      });
+  });
+
+  it('its should allow u to access some roles that user have premssion on', () => {
+    return mockRequest.get('/read').set({Authorization:`Bearer ${newToken}`})
+      .then(results => {
+        expect(results.text).toEqual('the read route work');
+      });
+  });
+
+
+  it('its should not allow u to access some roles that user have not premssion on', () => {
+    return mockRequest.get('/read').set({Authorization:`Bearer ${newToken}a`})
+      .then(results => {
+        expect(results.status).toEqual(500);
       });
   });
  

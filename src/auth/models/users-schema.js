@@ -8,6 +8,7 @@ const User = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   token:{type:String},
+  role:{type:String,toLowerCase:true,enum:['user','writers','editors','administrators']},
 });
 
 User.pre('save', async function (next) {
@@ -52,6 +53,16 @@ User.statics.authenticateToken = async function (token) {
   } catch (e) {
     return Promise.reject({message:e.message});
   }
+};
+
+User.statics.can = (permission,userRole)=>{
+  let roles = {
+    'user':['read'],
+    'writers':['read','create'],
+    'editors':['read','create','update'],
+    'administrators' :['read','create','update','delete'],
+  };
+  return roles[userRole].includes(permission);
 };
 
 module.exports = mongoose.model('user', User);
