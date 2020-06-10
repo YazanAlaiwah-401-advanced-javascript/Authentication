@@ -9,6 +9,10 @@
 2. EndPoint: *POST* `/signin` -> will login the user and the password and usename will be besicAuth
 3. EndPoint: *POST* `/signup` -> will singup the user in the database
 4. EndPoint: *GET* `/secret` -> will return the user data if he have the token
+4. EndPoint: *GET* `/read` -> will return the information the user need 
+4. EndPoint: *POST* `/add` -> will add data for user if has a permission
+4. EndPoint: *PUT* `/change` -> will update data if the user has a permission
+4. EndPoint: *DELETE* `/remove` -> will delete data if the user has a permission
 ## Modules
 
 1. server.js
